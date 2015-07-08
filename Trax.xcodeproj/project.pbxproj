@@ -80,8 +80,6 @@
 				75F4B2741B4C967600D1536D /* AppDelegate.swift */,
 				75F4B2761B4C967600D1536D /* ViewController.swift */,
 				75F4B2781B4C967600D1536D /* Main.storyboard */,
-				75F4B27B1B4C967700D1536D /* Images.xcassets */,
-				75F4B27D1B4C967700D1536D /* LaunchScreen.xib */,
 				75F4B2721B4C967600D1536D /* Supporting Files */,
 			);
 			path = Trax;
@@ -90,6 +88,8 @@
 		75F4B2721B4C967600D1536D /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				75F4B27D1B4C967700D1536D /* LaunchScreen.xib */,
+				75F4B27B1B4C967700D1536D /* Images.xcassets */,
 				75F4B2731B4C967600D1536D /* Info.plist */,
 			);
 			name = "Supporting Files";

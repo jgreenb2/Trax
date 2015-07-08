@@ -8,12 +8,22 @@
 
 import UIKit
 
+struct GPXURL {
+    static let Notification = "GPX Broadcaster"
+    static let Key = "GPXURL"
+}
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
+    func application(application: UIApplication, handleOpenURL url: NSURL) -> Bool {
+        let center = NSNotificationCenter.defaultCenter()
+        let notification = NSNotification(name: GPXURL.Notification, object: self, userInfo: [GPXURL.Key:url])
+        center.postNotification(notification)
+        return true
+    }
+    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         return true
