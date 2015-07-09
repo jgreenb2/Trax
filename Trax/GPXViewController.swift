@@ -42,6 +42,15 @@ class GPXViewController: UIViewController, MKMapViewDelegate {
         mapView.showAnnotations(waypoints, animated: true)
     }
     
+    @IBAction func addWaypoint(sender: UILongPressGestureRecognizer) {
+        if sender.state == UIGestureRecognizerState.Began {
+            let coordinate = mapView.convertPoint(sender.locationInView(mapView), toCoordinateFromView: mapView)
+            let waypoint = EditableWaypoint(latitude: coordinate.latitude, longitude: coordinate.longitude)
+            waypoint.name = "New Pin"
+            mapView.addAnnotation(waypoint)
+        }
+    }
+    
     struct Constants {
         static let AnnotationViewReuseIdentifier = "waypoints"
         static let LeftCalloutFrame = CGRect(x: 0, y: 0, width: 59, height: 59)
@@ -58,25 +67,27 @@ class GPXViewController: UIViewController, MKMapViewDelegate {
             view.annotation = annotation
         }
         
+        view.draggable = annotation is EditableWaypoint
+        
         view.leftCalloutAccessoryView = nil
         view.rightCalloutAccessoryView = nil
         if let waypoint = annotation as? GPX.Waypoint {
             if waypoint.thumbnailURL != nil {
-                view.leftCalloutAccessoryView = UIImageView(frame: Constants.LeftCalloutFrame)
+                view.leftCalloutAccessoryView = UIButton(frame: Constants.LeftCalloutFrame)
             }
-            if waypoint.imageURL != nil {
-                view.rightCalloutAccessoryView = UIButton.buttonWithType(UIButtonType.DetailDisclosure) as! UIButton
-            }
+//            if waypoint.imageURL != nil {
+//                view.rightCalloutAccessoryView = UIButton.buttonWithType(UIButtonType.DetailDisclosure) as! UIButton
+//            }
         }
         return view
     }
     
     func mapView(mapView: MKMapView!, didSelectAnnotationView view: MKAnnotationView!) {
         if let waypoint = view.annotation as? GPX.Waypoint {
-            if let thumbnailImageView = view.leftCalloutAccessoryView as? UIImageView {
+            if let thumbnailImageButton = view.leftCalloutAccessoryView as? UIButton {
                 if let imageData = NSData(contentsOfURL: waypoint.thumbnailURL!) { // fix! by making async
                     if let image = UIImage(data: imageData) {
-                        thumbnailImageView.image = image
+                        thumbnailImageButton.setImage(image, forState: UIControlState.Normal)
                     }
                 }
             }
