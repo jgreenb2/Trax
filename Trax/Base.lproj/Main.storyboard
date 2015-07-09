@@ -87,7 +87,7 @@
             </objects>
             <point key="canvasLocation" x="1682" y="-356"/>
         </scene>
-        <!--Edit Waypoint View Controller-->
+        <!--Edit Waypoint-->
         <scene sceneID="z4J-O1-ZBb">
             <objects>
                 <viewController id="NU6-6l-egB" customClass="EditWaypointViewController" customModule="Trax" customModuleProvider="target" sceneMemberID="viewController">
@@ -137,7 +137,7 @@
                             <constraint firstItem="Qbl-9M-h87" firstAttribute="leading" secondItem="AXj-bg-S55" secondAttribute="trailing" constant="18" id="yy6-uy-aHD"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="b6w-V7-W2b">
+                    <navigationItem key="navigationItem" title="Edit Waypoint" id="b6w-V7-W2b">
                         <barButtonItem key="rightBarButtonItem" title="Done" id="LXx-uy-KqP">
                             <connections>
                                 <action selector="doneEditing:" destination="NU6-6l-egB" id="dKd-I8-tgk"/>
@@ -151,7 +151,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BcP-d9-WKh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1779" y="334"/>
+            <point key="canvasLocation" x="1682" y="334"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Rd3-i5-dCN">
@@ -171,10 +171,10 @@
             </objects>
             <point key="canvasLocation" x="218" y="-356"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Edit Waypoint-->
         <scene sceneID="DWv-Kn-oP6">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="a1u-Sn-GXc" sceneMemberID="viewController">
+                <navigationController title="Edit Waypoint" automaticallyAdjustsScrollViewInsets="NO" id="a1u-Sn-GXc" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="WWt-tp-mXl">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
