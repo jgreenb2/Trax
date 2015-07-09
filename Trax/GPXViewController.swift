@@ -45,6 +45,7 @@ class GPXViewController: UIViewController, MKMapViewDelegate {
     struct Constants {
         static let AnnotationViewReuseIdentifier = "waypoints"
         static let LeftCalloutFrame = CGRect(x: 0, y: 0, width: 59, height: 59)
+        static let Segue = "show image"
     }
     
     func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
@@ -58,9 +59,13 @@ class GPXViewController: UIViewController, MKMapViewDelegate {
         }
         
         view.leftCalloutAccessoryView = nil
+        view.rightCalloutAccessoryView = nil
         if let waypoint = annotation as? GPX.Waypoint {
             if waypoint.thumbnailURL != nil {
                 view.leftCalloutAccessoryView = UIImageView(frame: Constants.LeftCalloutFrame)
+            }
+            if waypoint.imageURL != nil {
+                view.rightCalloutAccessoryView = UIButton.buttonWithType(UIButtonType.DetailDisclosure) as! UIButton
             }
         }
         return view
@@ -73,6 +78,21 @@ class GPXViewController: UIViewController, MKMapViewDelegate {
                     if let image = UIImage(data: imageData) {
                         thumbnailImageView.image = image
                     }
+                }
+            }
+        }
+    }
+    
+    func mapView(mapView: MKMapView!, annotationView view: MKAnnotationView!, calloutAccessoryControlTapped control: UIControl!) {
+        performSegueWithIdentifier(Constants.Segue, sender: view)
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == Constants.Segue {
+            if let waypoint = (sender as? MKAnnotationView)?.annotation as? GPX.Waypoint {
+                if let ivc = segue.destinationViewController as? ImageViewController {
+                    ivc.imageURL = waypoint.imageURL
+                    ivc.title = waypoint.name
                 }
             }
         }

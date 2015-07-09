@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="JsP-QJ-cTt">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
@@ -28,12 +28,71 @@
                             <constraint firstAttribute="trailing" secondItem="xH3-Lk-laP" secondAttribute="trailing" id="lyJ-IK-Lc1"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="Tr3-7d-619"/>
                     <connections>
                         <outlet property="mapView" destination="xH3-Lk-laP" id="msn-HL-yN7"/>
+                        <segue destination="zWz-hM-Rbr" kind="show" identifier="show image" id="t0V-Pt-hin"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="967" y="-356"/>
+        </scene>
+        <!--Image View Controller-->
+        <scene sceneID="kEa-8X-RHo">
+            <objects>
+                <viewController id="zWz-hM-Rbr" customClass="ImageViewController" customModule="Trax" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="be1-xM-2Ph"/>
+                        <viewControllerLayoutGuide type="bottom" id="f95-5A-FHh"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="euR-nS-jlJ">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vje-aw-7v5">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </scrollView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="OUF-YB-5Ci">
+                                <rect key="frame" x="290" y="290" width="20" height="20"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="OUF-YB-5Ci" secondAttribute="centerX" id="52T-gu-oQS"/>
+                            <constraint firstItem="vje-aw-7v5" firstAttribute="top" secondItem="euR-nS-jlJ" secondAttribute="top" id="8Jt-gt-2Np"/>
+                            <constraint firstItem="vje-aw-7v5" firstAttribute="bottom" secondItem="f95-5A-FHh" secondAttribute="top" id="98l-j1-aqP"/>
+                            <constraint firstAttribute="centerY" secondItem="OUF-YB-5Ci" secondAttribute="centerY" id="9SI-GJ-d0k"/>
+                            <constraint firstItem="vje-aw-7v5" firstAttribute="leading" secondItem="euR-nS-jlJ" secondAttribute="leading" id="DzU-Hb-rX7"/>
+                            <constraint firstAttribute="trailing" secondItem="vje-aw-7v5" secondAttribute="trailing" id="lLw-sh-2Cn"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="scrollView" destination="vje-aw-7v5" id="ivF-VV-aGb"/>
+                        <outlet property="spinner" destination="OUF-YB-5Ci" id="An8-Kp-gzK"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gHH-F3-96k" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1682" y="-356"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Rd3-i5-dCN">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="JsP-QJ-cTt" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Xgp-it-CWC">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="ZFT-dv-Ux2"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="J9r-3A-1Ga" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="218" y="-356"/>
         </scene>
     </scenes>
 </document>
