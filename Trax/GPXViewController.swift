@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class GPXViewController: UIViewController, MKMapViewDelegate {
+class GPXViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentationControllerDelegate {
 
     @IBOutlet weak var mapView: MKMapView! {
         didSet {
@@ -108,6 +108,7 @@ class GPXViewController: UIViewController, MKMapViewDelegate {
         }
     }
     
+    // MARK: - Navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == Constants.ShowImageSegue {
             if let waypoint = (sender as? MKAnnotationView)?.annotation as? GPX.Waypoint {
@@ -119,10 +120,30 @@ class GPXViewController: UIViewController, MKMapViewDelegate {
         } else if segue.identifier == Constants.EditWayPointSegue {
             if let waypoint = (sender as? MKAnnotationView)?.annotation as? EditableWaypoint {
                 if let ewvc = segue.destinationViewController.contentViewController as? EditWaypointViewController {
+                    if let ppvc = ewvc.popoverPresentationController {
+                        let coordinatePoint = mapView.convertCoordinate(waypoint.coordinate, toPointToView: mapView)
+                        ppvc.sourceRect = (sender as! MKAnnotationView).popoverSourceRectForCoordinatePoint(coordinatePoint)
+                        let minimumSize = ewvc.view.systemLayoutSizeFittingSize(UILayoutFittingCompressedSize)
+                        ewvc.preferredContentSize.width = Constants.EditWayPointPopoverWidth
+                        ewvc.preferredContentSize.height = minimumSize.height
+                        ppvc.delegate = self
+                    }
                     ewvc.waypointToEdit = waypoint
                 }
             }
         }
+    }
+    
+    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController!, traitCollection: UITraitCollection!) -> UIModalPresentationStyle {
+        return UIModalPresentationStyle.OverFullScreen
+    }
+    
+    func presentationController(controller: UIPresentationController, viewControllerForAdaptivePresentationStyle style: UIModalPresentationStyle) -> UIViewController? {
+        let navcon =  UINavigationController(rootViewController: controller.presentedViewController)
+        let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: UIBlurEffectStyle.ExtraLight))
+        visualEffectView.frame = navcon.view.bounds
+        navcon.view.insertSubview(visualEffectView, atIndex: 0)
+        return navcon
     }
     
     override func viewDidLoad() {
@@ -153,6 +174,15 @@ extension UIViewController {
         } else {
             return self
         }
+    }
+}
+
+extension MKAnnotationView {
+    func popoverSourceRectForCoordinatePoint(coordinatePoint: CGPoint) -> CGRect {
+        var popoverSourceRectCenter = coordinatePoint
+        popoverSourceRectCenter.x -= frame.width/2 - centerOffset.x - calloutOffset.x
+        popoverSourceRectCenter.y -= frame.height/2 - centerOffset.y - calloutOffset.y
+        return CGRect(origin: popoverSourceRectCenter, size: frame.size)
     }
 }
 
