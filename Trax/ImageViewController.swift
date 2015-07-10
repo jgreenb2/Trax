@@ -89,6 +89,7 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
         mustInitializeZoom = false
     }
     
+    // called prior to an orientation change
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
         zoomToFit(size.width)
@@ -97,7 +98,7 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
     func zoomToFit(viewWidth: CGFloat) {
         if mustInitializeZoom {
             if let iw = imageView.image?.size.width {
-                 scrollView.zoomScale = viewWidth / iw
+                 scrollView.zoomScale = viewWidth / iw  // this will cause the mustInitializeZoom flag to clear
             }
         }
         // zoomToFit is not permitted to clear the mustInitializeZoom flag
