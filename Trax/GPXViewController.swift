@@ -51,6 +51,7 @@ class GPXViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
         }
     }
     
+    // MARK: -- Constants
     struct Constants {
         static let AnnotationViewReuseIdentifier = "waypoints"
         static let LeftCalloutFrame = CGRect(x: 0, y: 0, width: 59, height: 59)

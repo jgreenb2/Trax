@@ -9,7 +9,7 @@
 import UIKit
 
 class EditWaypointViewController: UIViewController, UITextFieldDelegate {
-
+    // MARK: -- Text Fields
     @IBOutlet weak var nameTextField: UITextField! { didSet { nameTextField.delegate = self } }
     @IBOutlet weak var infoTextField: UITextField! { didSet { infoTextField.delegate = self } }
     
@@ -45,6 +45,7 @@ class EditWaypointViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
+
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         if let observer = ntfObserver {
@@ -55,6 +56,15 @@ class EditWaypointViewController: UIViewController, UITextFieldDelegate {
         }
 
     }
+    
+    // MARK: -- Image
+    var imageView = UIImageView()
+    @IBOutlet weak var imageViewContainer: UIView! {
+        didSet {
+            imageViewContainer.addSubview(imageView)
+        }
+    }
+    
     
     @IBAction func doneEditing(sender: AnyObject) {
         presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
