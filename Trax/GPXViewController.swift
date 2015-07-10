@@ -100,7 +100,6 @@ class GPXViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
         imageURL = url
         let spinner = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
         destButton.addSubview(spinner)
-        spinner.center = CGPoint(x: Constants.LeftCalloutFrame.midX, y: Constants.LeftCalloutFrame.midY)
         spinner.startAnimating()
 
         dispatch_async(dispatch_get_global_queue(qos, 0)) { () -> Void in
