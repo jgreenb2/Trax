@@ -88,9 +88,33 @@ class GPXViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
     func mapView(mapView: MKMapView!, didSelectAnnotationView view: MKAnnotationView!) {
         if let waypoint = view.annotation as? GPX.Waypoint {
             if let thumbnailImageButton = view.leftCalloutAccessoryView as? UIButton {
-                if let imageData = NSData(contentsOfURL: waypoint.thumbnailURL!) { // fix! by making async
-                    if let image = UIImage(data: imageData) {
-                        thumbnailImageButton.setImage(image, forState: UIControlState.Normal)
+                fetchImageForButton(waypoint.thumbnailURL!, destButton: thumbnailImageButton)
+            }
+        }
+    }
+    
+    var imageURL: NSURL?
+    
+    func fetchImageForButton(url: NSURL, destButton: UIButton) {
+        let qos = Int(QOS_CLASS_USER_INITIATED.value)
+        imageURL = url
+//        let spinner = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
+//        if let buttonImageView = destButton.imageView {
+//            buttonImageView.addSubview(spinner)
+//            spinner.center = CGPoint(x: Constants.LeftCalloutFrame.midX, y: Constants.LeftCalloutFrame.midY)
+//            spinner.startAnimating()
+//        }
+
+        dispatch_async(dispatch_get_global_queue(qos, 0)) { () -> Void in
+            if let imageData = NSData(contentsOfURL: url) {
+                dispatch_async(dispatch_get_main_queue()) { () -> Void in
+//                  spinner.stopAnimating()
+                    if url == self.imageURL {
+                        if let image = UIImage(data: imageData) {
+                            destButton.setImage(image, forState: UIControlState.Normal)
+                        } else {
+                            destButton.setImage(nil, forState: UIControlState.Normal)
+                        }
                     }
                 }
             }
