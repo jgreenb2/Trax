@@ -63,6 +63,9 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
             imageView.image=newValue
             imageView.sizeToFit()
             scrollView?.contentSize = imageView.frame.size
+            if newValue != nil {
+                zoomToFit(scrollView!.superview!.frame.width)
+            }
             spinner?.stopAnimating()
         }
     }
@@ -79,4 +82,27 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
             fetchImage()
         }
     }
+    
+    var mustInitializeZoom = true
+    
+    func scrollViewDidZoom(scrollView: UIScrollView) {
+        mustInitializeZoom = false
+    }
+    
+    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
+        zoomToFit(size.width)
+    }
+    
+    func zoomToFit(viewWidth: CGFloat) {
+        if mustInitializeZoom {
+            if let iw = imageView.image?.size.width {
+                 scrollView.zoomScale = viewWidth / iw
+            }
+        }
+        // zoomToFit is not permitted to clear the mustInitializeZoom flag
+        // only a user-initiated zoom should do this
+        mustInitializeZoom=true
+    }
+
 }
