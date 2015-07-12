@@ -88,8 +88,14 @@ class GPXViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
     
     func mapView(mapView: MKMapView!, didSelectAnnotationView view: MKAnnotationView!) {
         if let waypoint = view.annotation as? GPX.Waypoint {
-            if let thumbnailImageButton = view.leftCalloutAccessoryView as? UIButton {
-                fetchImageForButton(waypoint.thumbnailURL!, destButton: thumbnailImageButton)
+            if let url = waypoint.thumbnailURL {
+                if view.leftCalloutAccessoryView == nil {
+                    // a thumbnail must have been added since the waypoint was created
+                    view.leftCalloutAccessoryView = UIButton(frame: Constants.LeftCalloutFrame)
+                }
+                if let thumbnailImageButton = view.leftCalloutAccessoryView as? UIButton {
+                    fetchImageForButton(waypoint.thumbnailURL!, destButton: thumbnailImageButton)
+                }
             }
         }
     }
