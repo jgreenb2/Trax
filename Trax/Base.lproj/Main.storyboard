@@ -102,35 +102,47 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="b0P-8p-2ES">
-                                <rect key="frame" x="80" y="29" width="504" height="30"/>
+                                <rect key="frame" x="79" y="29" width="505" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Qbl-9M-h87">
-                                <rect key="frame" x="63" y="79" width="521" height="30"/>
+                                <rect key="frame" x="79" y="79" width="432.5" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CEd-9N-AC2">
-                                <rect key="frame" x="16" y="38" width="46" height="21"/>
+                                <rect key="frame" x="16" y="38" width="45.5" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Info" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AXj-bg-S55">
-                                <rect key="frame" x="16" y="88" width="29" height="21"/>
+                                <rect key="frame" x="16" y="88" width="29" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WQN-ZN-UOR">
-                                <rect key="frame" x="16" y="117" width="568" height="475"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <rect key="frame" x="16" y="117" width="568" height="431"/>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6sM-33-leX">
+                                <rect key="frame" x="520" y="70" width="64" height="48"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="64" id="n6W-Sq-kw7"/>
+                                </constraints>
+                                <state key="normal" title="Button" image="icon-camera">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="takePhotos:" destination="NU6-6l-egB" eventType="touchUpInside" id="h5T-Cx-h4A"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <constraints>
                             <constraint firstItem="WQN-ZN-UOR" firstAttribute="top" secondItem="Qbl-9M-h87" secondAttribute="bottom" constant="8" id="2e3-Es-Dve"/>
                             <constraint firstItem="CEd-9N-AC2" firstAttribute="leading" secondItem="1iI-wE-i6K" secondAttribute="leadingMargin" id="Css-OW-2Xz"/>
+                            <constraint firstItem="6sM-33-leX" firstAttribute="centerY" secondItem="Qbl-9M-h87" secondAttribute="centerY" id="Otf-Z2-rP2"/>
                             <constraint firstItem="CEd-9N-AC2" firstAttribute="baseline" secondItem="b0P-8p-2ES" secondAttribute="baseline" constant="6" id="TA9-YD-gEj"/>
                             <constraint firstItem="b0P-8p-2ES" firstAttribute="leading" secondItem="CEd-9N-AC2" secondAttribute="trailing" constant="18" id="Tkk-Sy-Y6m"/>
                             <constraint firstItem="Qbl-9M-h87" firstAttribute="top" secondItem="b0P-8p-2ES" secondAttribute="bottom" constant="20" id="Xi8-Jo-sHm"/>
@@ -138,13 +150,25 @@
                             <constraint firstItem="b0P-8p-2ES" firstAttribute="top" secondItem="LAf-7C-0Ko" secondAttribute="bottom" constant="9" id="afR-Uj-Qd9"/>
                             <constraint firstItem="Qbl-9M-h87" firstAttribute="trailing" secondItem="1iI-wE-i6K" secondAttribute="trailingMargin" id="dkA-yr-a0d"/>
                             <constraint firstItem="WQN-ZN-UOR" firstAttribute="trailing" secondItem="1iI-wE-i6K" secondAttribute="trailingMargin" id="e4I-Rh-94t"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="6sM-33-leX" secondAttribute="trailing" id="fF6-Gw-jFy"/>
+                            <constraint firstItem="Qbl-9M-h87" firstAttribute="leading" secondItem="b0P-8p-2ES" secondAttribute="leading" constant="1" id="flz-Dh-8HP"/>
                             <constraint firstItem="b0P-8p-2ES" firstAttribute="trailing" secondItem="1iI-wE-i6K" secondAttribute="trailingMargin" id="lbD-zJ-Jwl"/>
                             <constraint firstItem="Qbl-9M-h87" firstAttribute="baseline" secondItem="AXj-bg-S55" secondAttribute="baseline" constant="-6" id="sP9-wp-OnA"/>
                             <constraint firstItem="PpW-rD-mft" firstAttribute="top" secondItem="WQN-ZN-UOR" secondAttribute="bottom" constant="8" id="t5V-u1-VHp"/>
                             <constraint firstItem="AXj-bg-S55" firstAttribute="leading" secondItem="1iI-wE-i6K" secondAttribute="leadingMargin" id="vFG-2k-DTH"/>
+                            <constraint firstItem="Qbl-9M-h87" firstAttribute="leading" secondItem="b0P-8p-2ES" secondAttribute="leading" id="vLw-hL-QVl"/>
+                            <constraint firstItem="6sM-33-leX" firstAttribute="leading" secondItem="Qbl-9M-h87" secondAttribute="trailing" constant="8" symbolic="YES" id="x2m-UC-MVg"/>
                             <constraint firstItem="Qbl-9M-h87" firstAttribute="leading" secondItem="AXj-bg-S55" secondAttribute="trailing" constant="18" id="yy6-uy-aHD"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="dkA-yr-a0d"/>
+                                <exclude reference="flz-Dh-8HP"/>
+                                <exclude reference="yy6-uy-aHD"/>
+                            </mask>
+                        </variation>
                     </view>
+                    <toolbarItems/>
                     <navigationItem key="navigationItem" title="Edit Waypoint" id="b6w-V7-W2b">
                         <barButtonItem key="rightBarButtonItem" title="Done" id="LXx-uy-KqP">
                             <connections>
@@ -152,6 +176,7 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="imageViewContainer" destination="WQN-ZN-UOR" id="5x6-qJ-wiU"/>
                         <outlet property="infoTextField" destination="Qbl-9M-h87" id="bUx-4j-LRj"/>
@@ -181,4 +206,7 @@
             <point key="canvasLocation" x="218" y="-356"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="icon-camera" width="64" height="48"/>
+    </resources>
 </document>

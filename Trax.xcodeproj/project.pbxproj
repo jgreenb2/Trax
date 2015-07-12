@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		75066FC21B4ED1F300532E58 /* EditWaypointViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75066FC11B4ED1F300532E58 /* EditWaypointViewController.swift */; };
 		7509B91E1B4E093A00AC40FA /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7509B91D1B4E093A00AC40FA /* ImageViewController.swift */; };
+		751276911B520204001AFE01 /* icon-camera.png in Resources */ = {isa = PBXBuildFile; fileRef = 751276901B520204001AFE01 /* icon-camera.png */; };
 		75F4B2751B4C967600D1536D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F4B2741B4C967600D1536D /* AppDelegate.swift */; };
 		75F4B2771B4C967600D1536D /* GPXViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F4B2761B4C967600D1536D /* GPXViewController.swift */; };
 		75F4B27A1B4C967600D1536D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 75F4B2781B4C967600D1536D /* Main.storyboard */; };
@@ -32,6 +33,7 @@
 /* Begin PBXFileReference section */
 		75066FC11B4ED1F300532E58 /* EditWaypointViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditWaypointViewController.swift; sourceTree = "<group>"; };
 		7509B91D1B4E093A00AC40FA /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
+		751276901B520204001AFE01 /* icon-camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-camera.png"; path = "Images.xcassets/icon-camera.png"; sourceTree = "<group>"; };
 		75F4B26F1B4C967600D1536D /* Trax.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Trax.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		75F4B2731B4C967600D1536D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		75F4B2741B4C967600D1536D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -102,6 +104,7 @@
 			children = (
 				75F4B27D1B4C967700D1536D /* LaunchScreen.xib */,
 				75F4B27B1B4C967700D1536D /* Images.xcassets */,
+				751276901B520204001AFE01 /* icon-camera.png */,
 				75F4B2731B4C967600D1536D /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -205,6 +208,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				75F4B27A1B4C967600D1536D /* Main.storyboard in Resources */,
+				751276911B520204001AFE01 /* icon-camera.png in Resources */,
 				75F4B27F1B4C967700D1536D /* LaunchScreen.xib in Resources */,
 				75F4B27C1B4C967700D1536D /* Images.xcassets in Resources */,
 			);
