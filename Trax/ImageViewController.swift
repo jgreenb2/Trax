@@ -26,7 +26,7 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
     private func fetchImage() {
         if let url = imageURL {
             spinner?.startAnimating()
-            let qos = Int(QOS_CLASS_USER_INITIATED.value) // legacy qos variable stuff
+            let qos = Int(QOS_CLASS_USER_INITIATED.rawValue) // legacy qos variable stuff
             dispatch_async(dispatch_get_global_queue(qos, 0)) {
                 let imageData = NSData(contentsOfURL: url)
                 dispatch_async(dispatch_get_main_queue()) { () -> Void in

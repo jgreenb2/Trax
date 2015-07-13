@@ -33,7 +33,7 @@ class GPXViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
     
     private func clearWayPoints() {
         if mapView?.annotations != nil {
-            mapView.removeAnnotations(mapView.annotations as! [MKAnnotation])
+            mapView.removeAnnotations(mapView.annotations as [MKAnnotation])
         }
     }
     
@@ -60,8 +60,8 @@ class GPXViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
         static let EditWayPointPopoverWidth: CGFloat = 320
     }
     
-    func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
-        var view = mapView.dequeueReusableAnnotationViewWithIdentifier(Constants.AnnotationViewReuseIdentifier)
+    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+        var view:MKAnnotationView! = mapView.dequeueReusableAnnotationViewWithIdentifier(Constants.AnnotationViewReuseIdentifier)
         
         if view == nil {
             view = MKPinAnnotationView(annotation: annotation, reuseIdentifier: Constants.AnnotationViewReuseIdentifier)
@@ -80,15 +80,15 @@ class GPXViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
             }
             
             if annotation is EditableWaypoint {
-                view.rightCalloutAccessoryView = UIButton.buttonWithType(UIButtonType.DetailDisclosure) as! UIButton
+                view.rightCalloutAccessoryView = UIButton(type: UIButtonType.DetailDisclosure)
             }
         }
         return view
     }
     
-    func mapView(mapView: MKMapView!, didSelectAnnotationView view: MKAnnotationView!) {
+    func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
         if let waypoint = view.annotation as? GPX.Waypoint {
-            if let url = waypoint.thumbnailURL {
+            if let _ = waypoint.thumbnailURL {
                 if view.leftCalloutAccessoryView == nil {
                     // a thumbnail must have been added since the waypoint was created
                     view.leftCalloutAccessoryView = UIButton(frame: Constants.LeftCalloutFrame)
@@ -103,7 +103,7 @@ class GPXViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
     var imageURL: NSURL?
     
     func fetchImageForButton(url: NSURL, destButton: UIButton) {
-        let qos = Int(QOS_CLASS_USER_INITIATED.value)
+        let qos = Int(QOS_CLASS_USER_INITIATED.rawValue)
         imageURL = url
         let spinner = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
         destButton.addSubview(spinner)
@@ -127,7 +127,7 @@ class GPXViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
         }
     }
     
-    func mapView(mapView: MKMapView!, annotationView view: MKAnnotationView!, calloutAccessoryControlTapped control: UIControl!) {
+    func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         if (control as? UIButton)?.buttonType == UIButtonType.DetailDisclosure {
             mapView.deselectAnnotation(view.annotation, animated: false)
             performSegueWithIdentifier(Constants.EditWayPointSegue, sender: view)
@@ -185,7 +185,7 @@ class GPXViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
         let appDelegate = UIApplication.sharedApplication().delegate
         
         center.addObserverForName(GPXURL.Notification, object: appDelegate, queue: queue) { (notification) -> Void in
-            if let url = notification?.userInfo?[GPXURL.Key] as? NSURL {
+            if let url = notification.userInfo?[GPXURL.Key] as? NSURL {
                 self.gpxURL = url
             }
         }
@@ -202,7 +202,7 @@ class GPXViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
 extension UIViewController {
     var contentViewController: UIViewController {
         if let navcon = self as? UINavigationController {
-            return navcon.visibleViewController
+            return navcon.visibleViewController!
         } else {
             return self
         }
