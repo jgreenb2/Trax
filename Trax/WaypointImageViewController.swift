@@ -23,7 +23,7 @@ class WaypointImageViewController: ImageViewController {
     func updateEmbeddedMap() {
         if let mapView = smvc?.mapView {
             mapView.mapType = .Hybrid
-            mapView.removeAnnotation(mapView.annotations)
+            mapView.removeAnnotations(mapView.annotations)
             mapView.addAnnotation(waypoint)
             mapView.showAnnotations(mapView.annotations, animated: true)
         }
