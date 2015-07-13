@@ -51,10 +51,10 @@
             </objects>
             <point key="canvasLocation" x="967" y="-356"/>
         </scene>
-        <!--Image View Controller-->
+        <!--Waypoint Image View Controller-->
         <scene sceneID="kEa-8X-RHo">
             <objects>
-                <viewController id="zWz-hM-Rbr" customClass="ImageViewController" customModule="Trax" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="zWz-hM-Rbr" customClass="WaypointImageViewController" customModule="Trax" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="be1-xM-2Ph"/>
                         <viewControllerLayoutGuide type="bottom" id="f95-5A-FHh"/>
@@ -63,12 +63,22 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vje-aw-7v5">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                            </scrollView>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="OUF-YB-5Ci">
                                 <rect key="frame" x="290" y="290" width="20" height="20"/>
                             </activityIndicatorView>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xHf-QM-E30">
+                                <rect key="frame" x="384" y="380" width="200" height="200"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="R6Y-og-Qlb"/>
+                                    <constraint firstAttribute="height" constant="200" id="o4c-om-WsQ"/>
+                                </constraints>
+                                <connections>
+                                    <segue destination="a0a-xF-SBx" kind="embed" identifier="embed map" id="bjL-Fm-7I9"/>
+                                </connections>
+                            </containerView>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vje-aw-7v5">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -77,6 +87,8 @@
                             <constraint firstItem="vje-aw-7v5" firstAttribute="bottom" secondItem="f95-5A-FHh" secondAttribute="top" id="98l-j1-aqP"/>
                             <constraint firstAttribute="centerY" secondItem="OUF-YB-5Ci" secondAttribute="centerY" id="9SI-GJ-d0k"/>
                             <constraint firstItem="vje-aw-7v5" firstAttribute="leading" secondItem="euR-nS-jlJ" secondAttribute="leading" id="DzU-Hb-rX7"/>
+                            <constraint firstItem="f95-5A-FHh" firstAttribute="top" secondItem="xHf-QM-E30" secondAttribute="bottom" constant="20" id="FBG-kE-BKh"/>
+                            <constraint firstItem="xHf-QM-E30" firstAttribute="trailing" secondItem="euR-nS-jlJ" secondAttribute="trailingMargin" id="Z6h-IB-Lgj"/>
                             <constraint firstAttribute="trailing" secondItem="vje-aw-7v5" secondAttribute="trailing" id="lLw-sh-2Cn"/>
                         </constraints>
                     </view>
@@ -204,6 +216,39 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J9r-3A-1Ga" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="218" y="-356"/>
+        </scene>
+        <!--Simple Map View Controller-->
+        <scene sceneID="ChB-fz-qju">
+            <objects>
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="a0a-xF-SBx" customClass="SimpleMapViewController" customModule="Trax" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="U4T-0V-Nvp"/>
+                        <viewControllerLayoutGuide type="bottom" id="NNP-r4-9pn"/>
+                    </layoutGuides>
+                    <view key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="BLG-PQ-Af9">
+                        <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Nxe-A4-DAO">
+                                <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
+                            </mapView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Nxe-A4-DAO" firstAttribute="leading" secondItem="BLG-PQ-Af9" secondAttribute="leading" id="8Sb-Rr-MbG"/>
+                            <constraint firstItem="Nxe-A4-DAO" firstAttribute="bottom" secondItem="NNP-r4-9pn" secondAttribute="top" id="CVN-aV-6c2"/>
+                            <constraint firstItem="Nxe-A4-DAO" firstAttribute="top" secondItem="U4T-0V-Nvp" secondAttribute="bottom" id="ICT-2a-KaR"/>
+                            <constraint firstAttribute="trailing" secondItem="Nxe-A4-DAO" secondAttribute="trailing" id="r57-IN-baB"/>
+                        </constraints>
+                    </view>
+                    <toolbarItems/>
+                    <connections>
+                        <outlet property="mapView" destination="Nxe-A4-DAO" id="zNH-mV-GiW"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="j4x-AS-Stw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2241" y="-308"/>
         </scene>
     </scenes>
     <resources>
