@@ -18,7 +18,8 @@ class GPXViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
         }
     }
     /**
-        gpxURL: the url for the GPX file
+        the url for the GPX file  
+      
         Note: when a new url is set we clear the old waypoints
         and then add new ones based on the GPX data at the url
     */
@@ -35,7 +36,7 @@ class GPXViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
         }
     }
     /**
-        clearWayPoints: Removes waypoints
+        Removes waypoint annotations from the map
     */
     private func clearWayPoints() {
         if mapView?.annotations != nil {
@@ -43,14 +44,18 @@ class GPXViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
         }
     }
     /**
-        handleWayPoints: adds and displays waypoints on the map
-        - Parameter waypoints: an array of GPX waypoints to add to the map
+        adds and displays waypoint annotations on the map
+        - Parameter waypoints: an array of GPX waypoints
     */
     private func handleWayPoints(waypoints: [GPX.Waypoint]) {
         mapView.addAnnotations(waypoints)
         mapView.showAnnotations(waypoints, animated: true)
     }
-    
+    /**
+        drops a new pin representing a waypoint in response to
+        a long-press on the map
+        - Parameter sender: the gesture recognizer associated with this action
+    */
     @IBAction func addWaypoint(sender: UILongPressGestureRecognizer) {
         if sender.state == UIGestureRecognizerState.Began {
             let coordinate = mapView.convertPoint(sender.locationInView(mapView), toCoordinateFromView: mapView)
@@ -61,6 +66,9 @@ class GPXViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
     }
     
     // MARK: -- Constants
+    /**
+        a struct containing internal GPX constants
+    */
     struct Constants {
         static let AnnotationViewReuseIdentifier = "waypoints"
         static let LeftCalloutFrame = CGRect(x: 0, y: 0, width: 59, height: 59)
@@ -69,18 +77,25 @@ class GPXViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
         static let EditWayPointPopoverWidth: CGFloat = 320
     }
     
+    // add an annotation view to the map
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+        // attempt to dequeue an existing view to use for the annotation
         var view:MKAnnotationView! = mapView.dequeueReusableAnnotationViewWithIdentifier(Constants.AnnotationViewReuseIdentifier)
         
         if view == nil {
+            // unlike table views, these aren't automatically created if there isn't a reusable one, so it's like Android:
+            // we have to make a new view manually
             view = MKPinAnnotationView(annotation: annotation, reuseIdentifier: Constants.AnnotationViewReuseIdentifier)
             view.canShowCallout = true
         } else {
+            // just reuse an existing view
             view.annotation = annotation
         }
         
+        // we want to be able to move the pin
         view.draggable = annotation is EditableWaypoint
         
+        // if a thumbnailURL exists we fetch and display its contents in the left callout of the annotation
         view.leftCalloutAccessoryView = nil
         view.rightCalloutAccessoryView = nil
         if let waypoint = annotation as? GPX.Waypoint {
@@ -88,6 +103,7 @@ class GPXViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
                 view.leftCalloutAccessoryView = UIButton(frame: Constants.LeftCalloutFrame)
             }
             
+            // if this is an annotation we created display an info/edit button in the right callout
             if annotation is EditableWaypoint {
                 view.rightCalloutAccessoryView = UIButton(type: UIButtonType.DetailDisclosure)
             }
@@ -95,22 +111,29 @@ class GPXViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
         return view
     }
     
+    // called when annotation is selected
     func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
         if let waypoint = view.annotation as? GPX.Waypoint {
-            if let _ = waypoint.thumbnailURL {
+            if let url = waypoint.thumbnailURL {
                 if view.leftCalloutAccessoryView == nil {
                     // a thumbnail must have been added since the waypoint was created
                     view.leftCalloutAccessoryView = UIButton(frame: Constants.LeftCalloutFrame)
                 }
                 if let thumbnailImageButton = view.leftCalloutAccessoryView as? UIButton {
-                    fetchImageForButton(waypoint.thumbnailURL!, destButton: thumbnailImageButton)
+                    fetchImageForButton(url, destButton: thumbnailImageButton)
                 }
             }
         }
     }
     
     var imageURL: NSURL?
-    
+    /**
+        fetches an image stored at a url and sets it as the image for a button
+        - Parameter url: the url where the image is stored
+        - Parameter destButton: the button where the image is to be displayed
+        - Note: the image is fetched asynchronously and a spinner is shown in
+            place of the button image until the data is available.
+    */
     func fetchImageForButton(url: NSURL, destButton: UIButton) {
         let qos = Int(QOS_CLASS_USER_INITIATED.rawValue)
         imageURL = url
@@ -136,6 +159,7 @@ class GPXViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
         }
     }
     
+    // show either the waypoint image or the edit waypoint screen depending on where the user tapped
     func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         if (control as? UIButton)?.buttonType == UIButtonType.DetailDisclosure {
             mapView.deselectAnnotation(view.annotation, animated: false)
@@ -153,7 +177,7 @@ class GPXViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
             if let waypoint = (sender as? MKAnnotationView)?.annotation as? GPX.Waypoint {
                 if let wivc = segue.destinationViewController.contentViewController as? WaypointImageViewController {
                     wivc.waypoint = waypoint
-                }else if let ivc = segue.destinationViewController.contentViewController as? ImageViewController {
+                } else if let ivc = segue.destinationViewController.contentViewController as? ImageViewController {
                     ivc.imageURL = waypoint.imageURL
                     ivc.title = waypoint.name
                 }
@@ -193,12 +217,14 @@ class GPXViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
         let queue = NSOperationQueue.mainQueue()
         let appDelegate = UIApplication.sharedApplication().delegate
         
+        // set a url if a file is dropped onto the app
         center.addObserverForName(GPXURL.Notification, object: appDelegate, queue: queue) { (notification) -> Void in
             if let url = notification.userInfo?[GPXURL.Key] as? NSURL {
                 self.gpxURL = url
             }
         }
         
+        /// gpxURL is a hardcoded test URL
         gpxURL = NSURL(string: "http://cs193p.stanford.edu/Vacation.gpx")
     }
 
