@@ -17,7 +17,11 @@ class GPXViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
             mapView.delegate = self
         }
     }
-    
+    /**
+        gpxURL: the url for the GPX file
+        Note: when a new url is set we clear the old waypoints
+        and then add new ones based on the GPX data at the url
+    */
     var gpxURL: NSURL? {
         didSet {
             if let url = gpxURL {
@@ -30,13 +34,18 @@ class GPXViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
             }
         }
     }
-    
+    /**
+        clearWayPoints: Removes waypoints
+    */
     private func clearWayPoints() {
         if mapView?.annotations != nil {
             mapView.removeAnnotations(mapView.annotations as [MKAnnotation])
         }
     }
-    
+    /**
+        handleWayPoints: adds and displays waypoints on the map
+        - Parameter waypoints: an array of GPX waypoints to add to the map
+    */
     private func handleWayPoints(waypoints: [GPX.Waypoint]) {
         mapView.addAnnotations(waypoints)
         mapView.showAnnotations(waypoints, animated: true)
