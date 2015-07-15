@@ -199,10 +199,18 @@ class GPXViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
         }
     }
     
-    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
-        return UIModalPresentationStyle.OverFullScreen
+    // adapt from popover to full screen on iPhone (or any horizontally compact system)
+    // do no adaptation (remain a popover) on a horizontally regular system
+    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
+        if traitCollection.horizontalSizeClass == UIUserInterfaceSizeClass.Compact {
+            return UIModalPresentationStyle.OverFullScreen
+        } else {
+            return UIModalPresentationStyle.None
+        }
     }
 
+    // when we adapt from Popover to OverFullScreen, we embed in a UINavigationController
+    // so that it's possible to dismiss the controller if needed
     func presentationController(controller: UIPresentationController, viewControllerForAdaptivePresentationStyle style: UIModalPresentationStyle) -> UIViewController? {
         let navcon =  UINavigationController(rootViewController: controller.presentedViewController)
         let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: UIBlurEffectStyle.ExtraLight))
