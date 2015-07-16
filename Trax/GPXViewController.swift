@@ -232,17 +232,19 @@ class GPXViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
             }
         }
         
-        /// gpxURL is a hardcoded test URL
+        // gpxURL is a hardcoded test URL
         gpxURL = NSURL(string: "http://cs193p.stanford.edu/Vacation.gpx")
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 }
 
+
 extension UIViewController {
+    /**
+        If the view controller is embedded in a UINavigationController
+        return the visible controller in the Navcon. Otherwise just return
+        self
+        - Returns: the view controller
+    */
     var contentViewController: UIViewController {
         if let navcon = self as? UINavigationController {
             return navcon.visibleViewController!
@@ -253,6 +255,11 @@ extension UIViewController {
 }
 
 extension MKAnnotationView {
+    /**
+        Calculates an enclosing rectangle around an MKAnnotationView.
+        Useful for anchoring a popover to an MKAnnotationView
+        - Returns: the enclosing CGRect
+    */
     func popoverSourceRectForCoordinatePoint(coordinatePoint: CGPoint) -> CGRect {
         var popoverSourceRectCenter = coordinatePoint
         popoverSourceRectCenter.x -= frame.width/2 - centerOffset.x - calloutOffset.x

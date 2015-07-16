@@ -9,7 +9,12 @@
 import UIKit
 
 class WaypointImageViewController: ImageViewController {
-
+    /**
+        When set, waypoint also sets an imageURL if one exists, a title based on the waypoint name
+        and then updates the embedded map view
+    
+        - SeeAlso: `updateEmbeddedMap()`
+    */
     var waypoint: GPX.Waypoint? {
         didSet {
             imageURL = waypoint?.imageURL
@@ -19,7 +24,9 @@ class WaypointImageViewController: ImageViewController {
     }
     
     var smvc: SimpleMapViewController?
-    
+    /**
+        Configures the embedded mapView controller
+    */
     func updateEmbeddedMap() {
         if let mapView = smvc?.mapView {
             mapView.mapType = .Hybrid
