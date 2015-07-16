@@ -5,7 +5,10 @@
 //  Created by jeff greenberg on 7/9/15.
 //  Copyright (c) 2015 Jeff Greenberg. All rights reserved.
 //
-
+//
+//  Define a view controller that allows entry of new name, info and image data into
+//  an editable waypoint
+//
 import UIKit
 import MobileCoreServices
 
@@ -19,18 +22,21 @@ class EditWaypointViewController: UIViewController, UITextFieldDelegate, UIImage
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        nameTextField.becomeFirstResponder()
-        updateUI()
+        nameTextField.becomeFirstResponder()    // show keyboard
+        updateUI()                              // update the form and image
     }
 
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        observeTextFields()
+        observeTextFields()                     // respond to any changes in the fields
     }
     
     var ntfObserver: NSObjectProtocol?
     var itfObserver: NSObjectProtocol?
     
+    /**
+        define observers for the text fields in the edit form
+    */
     func observeTextFields() {
         let center = NSNotificationCenter.defaultCenter()
         let queue = NSOperationQueue.mainQueue()
@@ -46,7 +52,7 @@ class EditWaypointViewController: UIViewController, UITextFieldDelegate, UIImage
         }
     }
     
-
+    // remove the observers when the view is no longer on screen
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         if let observer = ntfObserver {
