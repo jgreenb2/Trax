@@ -31,8 +31,8 @@ class GPX: NSObject, NSXMLParserDelegate
         var fixes = [Waypoint]()
         
         override var description: String {
-            let waypointDescription = "fixes=[\n" + "\n".join(fixes.map { $0.description }) + "\n]"
-            return " ".join([super.description, waypointDescription])
+            let waypointDescription = "fixes=[\n" + (fixes.map { $0.description }).joinWithSeparator("\n") + "\n]"
+            return [super.description, waypointDescription].joinWithSeparator(" ")
         }
     }
     
@@ -54,7 +54,7 @@ class GPX: NSObject, NSXMLParserDelegate
         lazy var date: NSDate? = self.attributes["time"]?.asGpxDate
         
         override var description: String {
-            return " ".join(["lat=\(latitude)", "lon=\(longitude)", super.description])
+            return ["lat=\(latitude)", "lon=\(longitude)", super.description].joinWithSeparator(" ")
         }
     }
     
@@ -72,7 +72,7 @@ class GPX: NSObject, NSXMLParserDelegate
             var descriptions = [String]()
             if attributes.count > 0 { descriptions.append("attributes=\(attributes)") }
             if links.count > 0 { descriptions.append("links=\(links)") }
-            return " ".join(descriptions)
+            return descriptions.joinWithSeparator(" ")
         }
     }
     
@@ -91,7 +91,7 @@ class GPX: NSObject, NSXMLParserDelegate
             var descriptions = [String]()
             descriptions.append("href=\(href)")
             if linkattributes.count > 0 { descriptions.append("linkattributes=\(linkattributes)") }
-            return "[" + " ".join(descriptions) + "]"
+            return "[" + descriptions.joinWithSeparator(" ") + "]"
         }
     }
 
@@ -102,7 +102,7 @@ class GPX: NSObject, NSXMLParserDelegate
         if waypoints.count > 0 { descriptions.append("waypoints = \(waypoints)") }
         if tracks.count > 0 { descriptions.append("tracks = \(tracks)") }
         if routes.count > 0 { descriptions.append("routes = \(routes)") }
-        return "\n".join(descriptions)
+        return descriptions.joinWithSeparator("\n")
     }
 
     // MARK: - Private Implementation
